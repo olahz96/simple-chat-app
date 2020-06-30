@@ -6,19 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>Chat app</title>
 </head>
 
 <body>
     <div id="app">
-        <div style="height: 400px;">
-            <p v-for="msg in output">{{ msg }}</p>
-            <p v-if="typing">{{ feedback }}</p>
+        <div class="navbar">
+            <h2>Simple chat app</h2>
         </div>
-
-        <input type="text" placeholder="Name" v-model="name">
-        <input type="text" placeholder="Message" v-model="message">
-        <button @click="send()">Send</button>
+        <h2 class="chat-window-header">Room</h2>
+        <div class="chat-window"> 
+            <ul class="chat-msg">
+                <li v-for="value in output" style="margin: 5px;">
+                    <p class="name">{{ value.name | capitalize }}</p>
+                    <p class="message">{{ value.message }}</p>
+                    <br>
+                </li>
+            </ul>   
+            <p class="chat-typing" v-if="typing">{{ feedback }}</p>
+        </div>
+        <div class="chat-window-footer">
+            <input class="name-input" type="text" placeholder="Name" v-model="name">
+            <input class="message-input" type="text" placeholder="Message" v-model="message">
+            <button class="send-btn" @click="send()">Send</button>
+        </div>  
     </div>
     <script src="chat.js"></script>
 </body>

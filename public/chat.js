@@ -12,19 +12,27 @@ const app = new Vue({
     },
     methods: {
         send() {
-            this.socket.emit('chat', {
-                name: this.name,
-                message: this.message
-            })
-            this.message = "";
+            if (this.message === '' || this.name === '') {
+                alert('The name or message field cannot be empty!')
+            } 
+            else {
+                this.socket.emit('chat', {
+                    name: this.name,
+                    message: this.message
+                })
+                this.message = "";
+            } 
         }
     },
     created() {
-        this.socket = io.connect('http://localhost:3000');  
+        this.socket = io.connect('http://localhost:3000');
     },
     mounted() {
         this.socket.on('chat', data => {
-            this.output.push(data.name + ': ' + data.message);
+            this.output.push({
+                name: data.name,
+                message: data.message
+            });
         });
 
         this.socket.on('typing', data => {
@@ -40,5 +48,12 @@ const app = new Vue({
         message(value) {
             value ? this.socket.emit('typing', this.name) : this.socket.emit('stopTyping')
         }
-    }
+    },
+    filters: {
+        capitalize: function (value) {
+          if (!value) return ''
+          value = value.toString()
+          return value.charAt(0).toUpperCase() + value.slice(1)
+        }
+      }
 })
