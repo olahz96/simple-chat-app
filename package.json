@@ -1,0 +1,25 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "It's a simple chat application using websockets.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olahz96/simple-chat-app.git"
+  },
+  "author": "Zoltán Oláh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olahz96/simple-chat-app/issues"
+  },
+  "homepage": "https://github.com/olahz96/simple-chat-app#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "socket.io": "^2.3.0"
+  }
+}
