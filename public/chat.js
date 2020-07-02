@@ -1,5 +1,3 @@
-let currentTime = (new Date()).toTimeString().substr(0,5);
-
 const app = new Vue({
     el: '#app',
     data() {
@@ -21,6 +19,7 @@ const app = new Vue({
                 alert('The message field cannot be empty!')
             } 
             else {
+                const currentTime = (new Date()).toTimeString().substr(0,5);
                 this.socket.emit('chat', {
                     client_id: this.socket.id,
                     name: this.name,
