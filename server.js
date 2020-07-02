@@ -12,6 +12,11 @@ const io = socket(server);
 io.on('connect', socket => {
     console.log('Client conneceted: ', socket.id);
 
+    socket.on('setUser', data => {
+        data = data.charAt(0).toUpperCase() + data.slice(1)
+        socket.broadcast.emit('joinMessage', `${data} has joined to the server!`);
+    });
+
     socket.on('chat', data => {
         io.emit('chat', data);
     });

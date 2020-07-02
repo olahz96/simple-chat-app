@@ -15,22 +15,40 @@
         <div class="navbar">
             <h2>Simple chat app</h2>
         </div>
-        <h2 class="chat-window-header">Room</h2>
-        <div class="chat-window"> 
-            <ul class="chat-msg">
-                <li v-for="value in output" style="margin: 5px;">
-                    <p class="name">{{ value.name | capitalize }}</p>
-                    <p class="message">{{ value.message }}</p>
-                    <br>
-                </li>
-            </ul>   
-            <p class="chat-typing" v-if="typing">{{ feedback }}</p>
+
+        <div v-if="state == 0" class="set-user">
+            <h2>Choose your username:</h2>
+            <div class="set-user-form">
+                <input class="name-input" type="text" placeholder="Name" v-model="name">
+                <button class="send-btn" @click="setUser()">Submit</button>
+            </div>   
         </div>
-        <div class="chat-window-footer">
-            <input class="name-input" type="text" placeholder="Name" v-model="name">
-            <input class="message-input" type="text" placeholder="Message" v-model="message">
-            <button class="send-btn" @click="send()">Send</button>
-        </div>  
+
+        <div v-if="state == 1">
+            <p class="join-message" v-if="joinMessage !== null">{{ joinMessage }}</p>
+            <h2 class="chat-window-header">Room</h2>
+            <div class="chat-window"> 
+                <ul class="chat-msg">
+                    <li v-for="value in output" class="chat-data">
+                        <div>
+                            <p class="name">{{ value.name | capitalize }}</p>
+                            <p class="message">{{ value.message }}</p>
+                        </div>
+                        <div>
+                            <p class="time">{{ value.time }}</p>
+                        </div>   
+                    </li>
+                </ul>   
+                <p class="chat-typing" v-if="typing">{{ feedback }}</p>
+            </div>
+            <div class="chat-window-footer">
+                <input class="message-input" type="text" placeholder="Message" v-model="message">
+                <button class="send-btn" @click="send()">Send</button>
+            </div>
+            <a class="change-user" href="#" @click="changeUser()">
+                <p class="change-msg">Change username</p>     
+            </a>
+        </div>       
     </div>
     <script src="chat.js"></script>
 </body>
