@@ -1,5 +1,4 @@
-let date = new Date();
-let currentTime = ('0' + date.getHours()).slice(-2) + ':' + date.getMinutes();
+let currentTime = (new Date()).toTimeString().substr(0,5);
 
 const app = new Vue({
     el: '#app',
@@ -12,7 +11,8 @@ const app = new Vue({
             feedback: '',
             typing: false,
             state: 0,
-            joinMessage: null
+            joinMessage: null,
+            currentUser: false,
         }      
     },
     methods: {
@@ -22,6 +22,7 @@ const app = new Vue({
             } 
             else {
                 this.socket.emit('chat', {
+                    client_id: this.socket.id,
                     name: this.name,
                     message: this.message,
                     time: currentTime
@@ -43,15 +44,22 @@ const app = new Vue({
         }
     },
     created() {
-        this.socket = io.connect('http://localhost:3000');
+        this.socket = io();   
     },
     mounted() {
         this.socket.on('chat', data => {
+            if (data.client_id === this.socket.id) {
+                this.currentUser = true;
+            } else {
+                this.currentUser = false;
+            }
+
             this.output.push({
                 name: data.name,
                 message: data.message,
-                time: data.time
-            });
+                time: data.time,
+                currentUser: this.currentUser
+            });      
         });
 
         this.socket.on('typing', data => {

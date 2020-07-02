@@ -88,10 +88,20 @@
     color: grey;
 }
 
-.message {
+.current-user {
     display: inline-block;
     padding: 5px 10px 5px 10px;
     background-color: #BF1A2F;
+    color: #ffffff;
+    border-radius: 3px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.other-user {
+    display: inline-block;
+    padding: 5px 10px 5px 10px;
+    background-color: #2460A7FF;
     color: #ffffff;
     border-radius: 3px;
     font-size: 18px;

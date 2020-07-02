@@ -32,7 +32,7 @@
                     <li v-for="value in output" class="chat-data">
                         <div>
                             <p class="name">{{ value.name | capitalize }}</p>
-                            <p class="message">{{ value.message }}</p>
+                            <p :class="value.currentUser ? 'current-user' : 'other-user'">{{ value.message }}</p>
                         </div>
                         <div>
                             <p class="time">{{ value.time }}</p>
